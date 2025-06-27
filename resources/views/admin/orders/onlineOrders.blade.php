@@ -20,6 +20,7 @@
                 <th>Needs Painter</th>
                 <th>Description</th>
                 <th>Phone</th>
+                <th>TotalAmount</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -40,6 +41,7 @@
                     <td>{{ $order->needs_painter == 'yes' ? 'Yes' : 'No' }}</td>
                     <td>{{ $order->description ?? '-' }}</td>
                     <td>{{ $order->phone ?? 'N/A' }}</td>
+                    <td>Ksh {{ number_format($order->total_price) }}</td>
                   
                    <td>
     <form action="{{ route('order.updateStatus', $order->id) }}" method="POST">

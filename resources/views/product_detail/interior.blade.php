@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('title', ucfirst($type ?? 'unknown') . ' Paint')
 
 @section('content')

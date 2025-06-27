@@ -19,9 +19,14 @@ class OrderController extends Controller
         'paintcolor' => 'required|string',
         'needs_painter' => 'required|in:yes,no',
         'description' => 'nullable|string',
-         
-
+        
     ]);
+      $capacity = (float) $request->capacity;
+    $quantity = (int) $request->quantity;
+    $pricePerLitre = 200;
+
+    $total_price = $capacity * $quantity * $pricePerLitre;
+
 
     Order::create([
         'user_id' => session('loginId'), 
@@ -32,7 +37,7 @@ class OrderController extends Controller
         'paintcolor' => $request->paintcolor,
         'needs_painter' => $request->needs_painter,
         'description' => $request->description,
-        
+        'total_price' => $total_price,
         'status' => 'Pending',
     ]);
 
@@ -41,12 +46,12 @@ class OrderController extends Controller
  }
 
 
-    public function showOrderForm($category,$type)
+public function showOrderForm($category, $type)
 {
     $orders = Order::with('user')->orderBy('created_at', 'desc')->get();
 
-    
-    return view('admin.orders.onlineOrders', compact('orders','category', 'type'));
+ 
+    return view('admin.orders.onlineOrders', compact('orders', 'category', 'type'));
 }
 
 
@@ -59,7 +64,17 @@ public function confirmOrder()
         ->latest()
         ->first();
 
-    return view('confirmOrder', compact('order'));
+     if ($order) {
+        $capacity = (float) $order->capacity; // in Litres
+        $quantity = (int) $order->quantity;
+        $pricePerLitre = 200;
+
+        $totalAmount = $capacity * $quantity * $pricePerLitre;
+    } else {
+        $totalAmount = 0;
+    }
+
+    return view('confirmOrder', compact('order','totalAmount'));
 }
 
 public function savePhone(Request $request)

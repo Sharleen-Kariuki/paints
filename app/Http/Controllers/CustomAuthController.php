@@ -22,6 +22,8 @@ class CustomAuthController extends Controller
     {
         return view("auth.registration");
     }
+
+    //This function is used to register a user
     public function registerUser(Request $request){
         $request ->validate([
             'name'=> 'required',
@@ -36,12 +38,13 @@ class CustomAuthController extends Controller
         $user->password = Hash::make($request->password);
         $res = $user->save();
         if($res){
-            return back()->route('login')->with('success',"You have registered Successfully");
+            return redirect()->route('login')->with('success',"You have registered Successfully");
         }else{
            return back()->with('fail','Something Wrong');
 
         }
     }
+//This function is used to login a user
     public function loginUser(Request $request){
         //Validates input
         $request ->validate([
@@ -68,21 +71,23 @@ class CustomAuthController extends Controller
     if (Session::has('loginId')) {
         $data = User::where('id', Session::get('loginId'))->first();
     }
-     
+     //this function is used to show the various table count onto the admin dashboarddashboard
       $painterscount = Painter::count();
-        $supplierscount = Supplier::count();
-        $orderscount = Order::count();
-        $physicalcount = PhysicalOrder::count();
-     $orders = Order::all();
+      $supplierscount = Supplier::count();
+      $orderscount = Order::count();
+      $physicalcount = PhysicalOrder::count();
+      $orders = Order::all();
+      $UsersCount = User::count();
 
-    $approvedCount = $orders->where('status', 'approved')->count();
-    $pendingCount = $orders->where('status', 'pending')->count();
-    $declinedCount = $orders->where('status', 'declined')->count();
+      $approvedCount = $orders->where('status', 'approved')->count();
+      $pendingCount = $orders->where('status', 'pending')->count();
+      $declinedCount = $orders->where('status', 'declined')->count();
 
     return view('dashboard', compact('data', 'painterscount','supplierscount','orderscount',
-     'physicalcount','approvedCount', 'pendingCount', 'declinedCount'));
+     'physicalcount','approvedCount', 'pendingCount', 'declinedCount','UsersCount'));
 }
-    public function logout(){
+//This function is used to logout a user
+public function logout(){
         if(Session::has('loginId')){
             Session::pull('loginId');
           return redirect()->route('login');

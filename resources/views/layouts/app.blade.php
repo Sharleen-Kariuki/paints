@@ -111,7 +111,7 @@
 <body>
     @include('partials.navbar')
 
-    <main>
+    <main >
         @yield('content')
     </main>
 

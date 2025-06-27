@@ -41,17 +41,6 @@
                         <span class="text-danger">@error('password') {{$message}} @enderror</span>
                     </div>
                     <br>
-                                        <div class="form-group">
-                        <label for="role">Role</label>
-                        <select class="form-control" name="role" id="role">
-                            <option value="">Choose Role</option>
-                            <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
-                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                        </select>
-                        <span class="text-danger">@error('role') {{$message}} @enderror</span>
-                    </div>
-                    <br>
-                    
                     <div class="form-group">
                         <button class="btn btn-block btn-primary" type="submit">Register</button>
                     </div>

@@ -12,6 +12,10 @@
                 <a class="nav-link text-white" href="#"> Dashboard</a>
             </li>
 
+             <li class="nav-item mb-2">
+                <a class="nav-link text-white" href="{{url('admin/Users/index')}}"> Users</a>
+            </li>
+
             <li class="nav-item mb-1 d-none d-md-block">
                 <strong class="text-uppercase small text-secondary">Orders</strong>
                 <ul class="nav flex-column ms-3">
@@ -48,6 +52,17 @@
         <h3>Welcome to Your Dashboard</h3>
         <p class="text-muted">Use the sidebar to manage your orders and painters.</p>
 
+         <div class="row mt-4">
+            <div class="col-md-4">
+                <a href="{{ url('admin/Users/index') }}" class="text-decoration-none text-dark">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Users</h5>
+                            <p class="card-text display-6">{{$UsersCount}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
        
         <div class="row mt-4">
             <div class="col-md-4">

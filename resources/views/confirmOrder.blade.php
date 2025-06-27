@@ -51,7 +51,7 @@
         {{-- Total Amount --}}
         <div class="tab-pane fade" id="amount" role="tabpanel" aria-labelledby="amount-tab">
             <h5>Total Amount</h5>
-            <p class="fs-4">Ksh <strong>0</strong></p> {{-- Replace with calculated total if needed --}}
+            <p class="fs-4">Ksh <strong>{{ number_format($totalAmount) }}</strong></p>
         </div>
     </div>
 

@@ -59,8 +59,10 @@ Route::post('/order/{category}/{type}', [OrderController::class, 'store'])->name
  Route::resource('painters', PaintersController::class);
 Route::resource('suppliers', SupplierController::class);
 Route::resource('physicalOrders', PhysicalOrderController::class);
+Route::get('/admin/Users/index', [AdminController::class, 'viewUsers'])->name('admin.Users.index');
 
 Route::patch('/order/{id}/status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+Route::patch('/user/{id}/role', [AdminController::class, 'updateRole'])->name('user.updateRole');
 
 
 
