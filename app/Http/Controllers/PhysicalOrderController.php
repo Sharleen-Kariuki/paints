@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PhysicalOrder;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class PhysicalOrderController extends Controller
@@ -12,7 +12,9 @@ class PhysicalOrderController extends Controller
      */
     public function index()
     {
-         $physicalOrders = PhysicalOrder::all();
+         $physicalOrders = Order::where('order_type', 'physical')
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('admin.orders.physicalOrders.index', compact('physicalOrders'));
     }
 
@@ -31,7 +33,7 @@ class PhysicalOrderController extends Controller
     {
          $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|string|max:20',
             'paintCategory' => 'required|string|max:255',
             'paintType' => 'required|string|max:255',
             'capacity' => 'required|string|max:255',
@@ -39,11 +41,19 @@ class PhysicalOrderController extends Controller
             'paintcolor' => 'required|string|max:255',
             'needs_painter' => 'required|in:yes,no',
             'description' => 'nullable|string|max:1000',
+            'order_type' => 'required|in:physical,online',
+
 
             
         ]);
+         $capacity = (float) $request->capacity;
+    $quantity = (int) $request->quantity;
+    $pricePerLitre = 200;
 
-        $user = new PhysicalOrder();
+    $total_price = $capacity * $quantity * $pricePerLitre;
+
+
+        $user = new Order();
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->paintCategory = $request->paintCategory;
@@ -53,6 +63,8 @@ class PhysicalOrderController extends Controller
         $user->paintcolor = $request->paintcolor;
         $user->needs_painter = $request->needs_painter;
         $user->description = $request->description;
+        $user->order_type = $request->order_type;
+        $user->total_price = $total_price;
         $user->status = 'Pending';
         $res = $user->save();
         if($res){
@@ -78,7 +90,7 @@ class PhysicalOrderController extends Controller
      */
     public function edit(string $id)
     {
-         $physicalOrder = PhysicalOrder::findOrFail($id);
+         $physicalOrder = Order::findOrFail($id);
         return view('admin.orders.physicalOrders.edit', compact('physicalOrder'));
     }
 
@@ -87,7 +99,7 @@ class PhysicalOrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $order = PhysicalOrder::findOrFail($id);
+         $order = Order::findOrFail($id);
 
     $request->validate([
         'name' => 'required|string|max:255',
@@ -117,7 +129,7 @@ class PhysicalOrderController extends Controller
     ]);
     $order->save();
 
-    return redirect()->route('physicalOrders.index')->with('success', 'Painter updated successfully.');
+    return redirect()->route('physicalOrders.index')->with('success', 'Order updated successfully.');
     }
 
     /**
@@ -125,10 +137,10 @@ class PhysicalOrderController extends Controller
      */
     public function destroy(string $id)
     {
-         $order = PhysicalOrder::findOrFail($id);
+         $order = Order::findOrFail($id);
     $order->delete();
 
-    return redirect()->route('physicalOrders.index')->with('success', 'Painter deleted.');
+    return redirect()->route('physicalOrders.index')->with('success', 'Order deleted.');
     }
 
     public function updateStatus(Request $request, $id)
@@ -137,11 +149,12 @@ class PhysicalOrderController extends Controller
         'status' => 'required|in:pending,approved,declined',
     ]);
 
-    $order = PhysicalOrder::findOrFail($id);
+    $order = Order::findOrFail($id);
     $order->status = $request->input('status');
     $order->save();
 
     return back()->with('success', 'Order status updated successfully.');
 
 }
+
 }

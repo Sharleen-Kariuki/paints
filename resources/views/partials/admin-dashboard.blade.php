@@ -34,6 +34,9 @@
             </li>
             <li class="nav-item mt-3">
                 <a class="nav-link text-white" href="{{ url('/suppliers') }}">Suppliers</a>
+            </li>
+             <li class="nav-item mt-3">
+                <a class="nav-link text-white" href="{{ url('/settings') }}">Settings</a>
 
               
             </li>
@@ -70,18 +73,18 @@
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
                             <h5 class="card-title">Online Orders</h5>
-                            <p class="card-text display-6">{{$orderscount}}</p>
+                            <p class="card-text display-6">{{$onlineOrdersCount}}</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="col-md-4">
-                <a href="{{ url('/physicalOrders') }}" class="text-decoration-none text-dark">
+                <a href="{{ url('admin/physicalOrders') }}" class="text-decoration-none text-dark">
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
                             <h5 class="card-title">Physical Orders</h5>
-                            <p class="card-text display-6">{{$physicalcount}}</p>
+                            <p class="card-text display-6">{{ $physicalOrdersCount}}</p>
                         </div>
                     </div>
                 </a>
@@ -119,9 +122,19 @@
                     </div>
                 </a>
             </div>
+              <div class="col-md-4">
+                <a href="{{ url('admin/orders/finished') }}" class="text-decoration-none text-dark">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Finished Orders</h5>
+                            <p class="card-text display-6">{{$finishedOrdersCount}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
 
             <div class="col-md-4">
-                <a href="{{ url('/painters') }}" class="text-decoration-none text-dark">
+                <a href="{{ url('admin/painters') }}" class="text-decoration-none text-dark">
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
                             <h5 class="card-title">Available Painters</h5>
@@ -132,11 +145,23 @@
             </div>
 
             <div class="col-md-4">
-                <a href="{{ url('/suppliers') }}" class="text-decoration-none text-dark">
+                <a href="{{ url('admin/suppliers') }}" class="text-decoration-none text-dark">
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
                             <h5 class="card-title">My Suppliers</h5>
                             <p class="card-text display-6">{{$supplierscount}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+                <a href="{{ url('manufacturer/materials/index') }}" class="text-decoration-none text-dark">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Materials Needed</h5>
+                            <p class="card-text display-6">{{$materialsCount}}</p>
                         </div>
                     </div>
                 </a>
@@ -147,4 +172,7 @@
         </div>
     </div>
 </div>
+<br>
+&nbsp;
+</br>
 @endsection

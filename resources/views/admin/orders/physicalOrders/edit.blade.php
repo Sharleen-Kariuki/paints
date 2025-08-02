@@ -151,6 +151,12 @@
 
         <button type="submit" class="btn btn-primary">Update Record</button>
         <a href="{{ route('physicalOrders.index') }}" class="btn btn-secondary">Cancel</a>
+        <br>
+        &nbsp;
+        </br>
+           <br>
+        &nbsp;
+        </br>
     </form>
     <br>
 </div>

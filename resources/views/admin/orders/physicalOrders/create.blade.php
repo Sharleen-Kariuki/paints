@@ -12,7 +12,13 @@
     </div>
 @endif
 
-<div class="container mt-4 mb-4" style="max-width: 600px;">
+<div class="container mt-20 mb-4" style="max-width: 600px;">
+    <br>&nbsp;
+    </br>
+                 {{-- Back Button --}}
+    <div class="mb-3">
+        <a href="{{ route('physicalOrders.index') }}" class="btn btn-secondary">Back</a>
+    </div>
     <form method="POST" action="{{ route('physicalOrders.store') }}">
         @csrf
         <input type="hidden" name="order_type" value="physical">
@@ -80,8 +86,20 @@
             <input type="text" class="form-control" id="description" name="description" placeholder="e.g. kitchen wall 2m by 3m">
         </div>
 
-        <br>
+        <input type="hidden" name="order_type" value="physical">
+
+        <div class="mb-4">
         <button type="submit" class="btn btn-primary">Place Order</button>
+         </div>
+
+
+        <br>
+        &nbsp;
+        </br>
+         <br>
+        &nbsp;
+        </br>
+
     </form>
 </div>
 @endsection

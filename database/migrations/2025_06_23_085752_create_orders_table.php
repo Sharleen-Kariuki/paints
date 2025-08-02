@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        
+        $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+        $table->string('name')->nullable();
+        $table->string('phone')->nullable();
         $table->string('paintCategory');
         $table->string('paintType');
         $table->string('capacity');
         $table->integer('quantity');
         $table->string('paintcolor');
-        $table->boolean('needs_painter');
-        $table->string('description')->nullable();
         $table->enum('order_type', ['online', 'physical'])->default('online');
         $table->string('status')->default('pending');
-            $table->timestamps();
+        $table->decimal('total_price', 10, 2)->nullable();
+        $table->timestamps();
         });
     }
 

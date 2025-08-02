@@ -29,6 +29,7 @@
                     </ul>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/painters') }}">Painters</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/suppliers') }}">Suppliers</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/settings') }}">Settings</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/logout') }}">Logout</a></li>
             </ul>
         </div>

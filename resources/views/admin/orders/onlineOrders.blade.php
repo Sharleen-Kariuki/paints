@@ -14,8 +14,8 @@
                 <th>User Name</th>
                 <th>Category</th>
                 <th>Type</th>
-                <th>Capacity</th>
                 <th>Quantity</th>
+                <th>Capacity</th>
                 <th>Paint Color</th>
                 <th>Needs Painter</th>
                 <th>Description</th>
@@ -48,7 +48,6 @@
         @csrf
         @method('PATCH')
         <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
-            <option value="pending" disabled selected>Select Status</option>
             <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
             <option value="approved" {{ $order->status == 'approved' ? 'selected' : '' }}>Approved</option>
             <option value="declined" {{ $order->status == 'declined' ? 'selected' : '' }}>Declined</option>
@@ -61,6 +60,15 @@
             @endforeach
         </tbody>
     </table>
+       {{-- Back Button --}}
+    <div class="mb-3">
+        <a href="{{ url('dashboard')}}" class="btn btn-secondary">Back</a>
+    </div>
+
+    <br>
+    &nbsp;
+</br>
+
 </div>
 @endsection
 @push('scripts')

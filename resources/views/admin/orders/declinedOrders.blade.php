@@ -24,15 +24,20 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $order->id }}</td>
-                    <td>{{ $order->user->name ?? 'N/A' }}</td>
+                    <td>{{ $order->name ?? 'N/A' }}</td>
                     <td>{{ $order->created_at->format('Y-m-d') }}</td>
-                    <td>KES {{ number_format($order->total, 2) }}</td>
+                    <td>KES {{ number_format($order->total_price, 2) }}</td>
                     <td><span class="badge bg-danger">{{ ucfirst($order->status) }}</span></td>
                   
                 </tr>
                 @endforeach
             </tbody>
         </table>
+                                {{-- Back Button --}}
+    <div class="mb-3">
+        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back</a>
+    </div>
     @endif
-</div>
+
+
 @endsection

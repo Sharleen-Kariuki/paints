@@ -4,7 +4,9 @@
 
 @if ($data && $data->role === 'admin')
     @include('partials.admin-dashboard')
-@else
+@elseif ($data && $data->role === 'user')
     @include('partials.user-dashboard')
+@else
+    @include('partials.manufacturer-dashboard') 
 @endif
 

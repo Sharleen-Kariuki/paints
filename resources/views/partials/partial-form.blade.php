@@ -1,4 +1,5 @@
-  @if ($errors->any())
+ 
+ @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input:
         <ul>
@@ -45,7 +46,7 @@
     <br>
 </div>
 
-<div class="mb-3">
+{{-- <div class="mb-3">
     <label class="form-label">Do you need a painter?</label>
     <div>
         <div class="form-check form-check-inline">
@@ -57,19 +58,48 @@
             <label class="form-check-label" for="needPainterNo">No</label>
         </div>
     </div>
-</div>
+</div> --}}
 
-<div class="mb-3">
+{{-- <div class="mb-3" id="descriptionArea" style="display: none;">
     <label for="description" class="form-label">Description of area to be painted:</label>
     <input type="text" class="form-control" id="description" name="description" min="1" placeholder="e.g. kitchen wall 2m by 3m">
-</div>
+</div> --}}
+<input type="hidden" name="order_type" value="online">
+<input type="hidden" name="status" value="pending">
 
-<div class="mb-3">
- 
-    
-    <button class="btn btn-success" type="submit">
-    Submit Order
-</button>
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const yesRadio = document.getElementById('needPainterYes');
+        const noRadio = document.getElementById('needPainterNo');
+        const descriptionArea = document.getElementById('descriptionArea');
+
+        function toggleDescription() {
+            if (yesRadio.checked) {
+                descriptionArea.style.display = '';
+            } else {
+                descriptionArea.style.display = 'none';
+            }
+        }
+
+        yesRadio.addEventListener('change', toggleDescription);
+        noRadio.addEventListener('change', toggleDescription);
+
+        toggleDescription();
+    });
+</script> --}}
+
+@if (!session()->has('loginId'))
+    <div class="alert alert-warning">
+        You must login first to submit an order.
+    </div>
+@else
+    <div class="mb-3">
+        <button class="btn btn-success" type="submit">
+            Submit Order
+        </button>
+    </div>
+@endif
 
 </div>
 </form>

@@ -32,6 +32,7 @@
                             <select name="role" onchange="this.form.submit()">
                                 <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                                 <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                 <option value="manufacturer" {{ $user->role == 'manufacturer' ? 'selected' : '' }}>Manufacturer</option>
                             </select>
                         </form>
                     </td>
@@ -40,6 +41,11 @@
             @endforeach
         </tbody>
     </table>
+       {{-- Back Button --}}
+    <div class="mb-3">
+        <a href="{{ url('dashboard')}}" class="btn btn-secondary">Back</a>
+    </div>
+
 </div>
 @endsection
 @push('scripts')

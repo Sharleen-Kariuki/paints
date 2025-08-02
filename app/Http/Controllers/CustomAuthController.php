@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\WelcomeEmailJob;
+use App\Mail\WelcomeMail;
+use App\Models\Material;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -11,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Painter;
 use App\Models\PhysicalOrder;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Mail;
 
 class CustomAuthController extends Controller
 {
@@ -38,11 +42,13 @@ class CustomAuthController extends Controller
         $user->password = Hash::make($request->password);
         $res = $user->save();
         if($res){
+           WelcomeEmailJob::dispatch($user);
             return redirect()->route('login')->with('success',"You have registered Successfully");
         }else{
            return back()->with('fail','Something Wrong');
 
         }
+       
     }
 //This function is used to login a user
     public function loginUser(Request $request){
@@ -64,6 +70,15 @@ class CustomAuthController extends Controller
             return back()->with('fail','This email is not registered.');
         }  
     }
+
+    public function publicDashboard()
+{
+    if (session()->has('loginId')) {
+        return redirect()->route('dashboard');
+    }
+
+    return view('partials.public-dashboard'); //show guest view
+}
     public function dashboard()
 {
     $data = null;
@@ -74,17 +89,20 @@ class CustomAuthController extends Controller
      //this function is used to show the various table count onto the admin dashboarddashboard
       $painterscount = Painter::count();
       $supplierscount = Supplier::count();
-      $orderscount = Order::count();
-      $physicalcount = PhysicalOrder::count();
+     
+    
       $orders = Order::all();
       $UsersCount = User::count();
-
+      $materialsCount = Material::count(); 
+      $onlineOrdersCount = $orders->where('order_type', 'online')->count();
+      $physicalOrdersCount = $orders->where('order_type','physical')->count();
       $approvedCount = $orders->where('status', 'approved')->count();
       $pendingCount = $orders->where('status', 'pending')->count();
       $declinedCount = $orders->where('status', 'declined')->count();
+      $finishedOrdersCount = $orders->where('status', 'completed')->count();
 
-    return view('dashboard', compact('data', 'painterscount','supplierscount','orderscount',
-     'physicalcount','approvedCount', 'pendingCount', 'declinedCount','UsersCount'));
+    return view('dashboard', compact('data', 'painterscount','supplierscount', 'onlineOrdersCount','physicalOrdersCount',
+'approvedCount', 'pendingCount', 'declinedCount','UsersCount', 'materialsCount','finishedOrdersCount'));
 }
 //This function is used to logout a user
 public function logout(){

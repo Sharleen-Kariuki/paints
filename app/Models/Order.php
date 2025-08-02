@@ -10,24 +10,31 @@ class Order extends Model
 {
     protected $fillable = [
         'user_id',
+        'name',
+        'phone',
         'paintCategory',
         'paintType',
         'capacity',
         'quantity',
         'paintcolor',
-        'needs_painter',
-        'description',
         'order_type',
         'status',
         'total_price',
        
 
     ];
+    //order flow
+ 
+
      
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function stockNeeded(){
+        return $this->hasMany(stockNeeded::class);
     }
 
 

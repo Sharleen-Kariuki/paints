@@ -10,7 +10,7 @@
         <p>This is water-based emulsion paint, perfect for walls and ceilings. It dries quickly and has a matte finish.</p>
     @elseif (($type ?? null) === 'low sheen')
         <p>This oil-based enamel paint is great for wood and metal surfaces. It's glossy, durable, and washable.</p>
-    @elseif (($type ?? null) === 'semi-gloss/gloss')
+    @elseif (($type ?? null) === 'semi-gloss')
         <p>Lustre paint provides a shiny, pearl-like finish ideal for stylish interiors. It's stain-resistant and easy to clean.</p>
     @elseif (($type ?? null) === 'eggshell')
         <p>Acrylic paint is versatile, quick-drying, and suitable for a variety of indoor surfaces. It offers vibrant color and good coverage.</p>
